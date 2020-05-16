@@ -6,4 +6,5 @@ export interface User extends Document {
   email: string;
   readonly password: string;
   created: Date;
+  refreshCount: number;
 }

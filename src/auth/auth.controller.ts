@@ -16,9 +16,17 @@ export class AuthController {
     const user = await this.userService.findByLogin(userDTO);
     const payload = {
       email: user.email,
+      refreshCount: user.refreshCount,
     };
     const token = await this.authService.signPayload(payload);
-    return { user, token };
+    delete user.refreshCount;
+    return { user, ...token };
+  }
+
+  @Post('getRefreshToken')
+  async refreshToken(@Body('refreshToken') refreshToken: string) {
+    const decodedToken = this.authService.decodeToken(refreshToken);
+    return this.authService.setRefreshCount(decodedToken);
   }
 
   @Get()
@@ -32,8 +40,10 @@ export class AuthController {
     const user = await this.userService.create(userDTO);
     const payload = {
       email: user.email,
+      refreshCount: user.refreshCount,
     };
     const token = await this.authService.signPayload(payload);
-    return { user, token };
+    delete user.refreshCount;
+    return { user, ...token };
   }
 }

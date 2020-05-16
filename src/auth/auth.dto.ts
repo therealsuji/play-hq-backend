@@ -8,4 +8,5 @@ export interface RegisterDTO {
   lastName: string;
   email: string;
   password: string;
+  refreshCount: number;
 }

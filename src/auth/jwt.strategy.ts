@@ -14,6 +14,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: any, done: VerifiedCallback) {
+    console.log(payload);
+    // TODO remove db call for access token as it doesn't make any sense
     const user = await this.authService.validateUser(payload);
     if (!user) {
       return done(

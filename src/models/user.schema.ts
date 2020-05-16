@@ -10,6 +10,10 @@ export const UserSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  refreshCount: {
+    type: Number,
+    default: 0,
+  },
 });
 
 UserSchema.pre('save', async function(next: mongoose.HookNextFunction) {

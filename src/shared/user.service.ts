@@ -9,7 +9,13 @@ export class UserService {
   constructor(@InjectModel('User') private userModel: Model<User>) {}
 
   private sanitizeUser(user: User) {
-    return user.depopulate('password');
+    const sanUser = user.toJSON();
+    delete sanUser.password;
+    delete sanUser.created;
+    delete sanUser.__v;
+    delete sanUser._id;
+
+    return sanUser;
   }
 
   async create(userDTO: RegisterDTO) {
