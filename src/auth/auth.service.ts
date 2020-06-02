@@ -1,4 +1,4 @@
-import { UserService } from './../shared/user.service';
+import { UserService } from '../users/user.service';
 import { Injectable, Logger, HttpException, HttpStatus } from '@nestjs/common';
 import { sign, decode, verify } from 'jsonwebtoken';
 @Injectable()
@@ -17,25 +17,19 @@ export class AuthService {
     return { accessToken, refreshToken };
   }
 
-  async validateUser(payload: any) {
-    return await this.userService.findByPayload(payload);
-  }
-
   async setRefreshCount(decodeToken: any) {
-    const user = await this.userService.findByPayload({
-      email: decodeToken.email,
-    });
+    const user = await this.userService.findByEmail(decodeToken.email);
+
     if (!user) {
       Logger.log('Invalid credentials');
       throw new HttpException('Invalid credentials', HttpStatus.UNAUTHORIZED);
     }
     if (user.refreshCount == decodeToken.refreshCount) {
-      user.refreshCount++;
-      user.save();
+      const refreshedUser = await this.userService.updateUserRefreshCount(user);
       console.log('good token');
       return await this.signPayload({
         email: decodeToken.email,
-        refreshCount: decodeToken.refreshCount,
+        refreshCount: refreshedUser.refreshCount,
       });
     } else {
       throw new HttpException('Invalid refresh token', HttpStatus.UNAUTHORIZED);
@@ -43,14 +37,13 @@ export class AuthService {
   }
 
   async disableRefreshTokenForUser(email: string) {
-    const user = await this.userService.findByPayload({
+    const user = await this.userService.findByEmail({
       email,
     });
     if (!user) {
       throw new HttpException('Invalid credentials', HttpStatus.UNAUTHORIZED);
     }
-    user.refreshCount++;
-    user.save();
+    this.userService.updateUserRefreshCount(user);
     return true;
   }
 

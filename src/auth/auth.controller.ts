@@ -1,6 +1,7 @@
+import { User } from './../../dist/types/user.d';
 import { AuthService } from './auth.service';
-import { RegisterDTO, LoginDTO } from './auth.dto';
-import { UserService } from './../shared/user.service';
+import { LoginDTO } from './auth.dto';
+import { UserService } from '../users/user.service';
 import { Controller, Post, Body, Logger, Get, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 
@@ -20,7 +21,7 @@ export class AuthController {
     };
     const token = await this.authService.signPayload(payload);
     delete user.refreshCount;
-    return { user, ...token };
+    return { user, token };
   }
 
   @Post('getRefreshToken')
@@ -36,7 +37,7 @@ export class AuthController {
   }
 
   @Post('register')
-  async register(@Body() userDTO: RegisterDTO) {
+  async register(@Body() userDTO: User) {
     const user = await this.userService.create(userDTO);
     const payload = {
       email: user.email,
@@ -44,6 +45,6 @@ export class AuthController {
     };
     const token = await this.authService.signPayload(payload);
     delete user.refreshCount;
-    return { user, ...token };
+    return { user, token };
   }
 }

@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
-import { MongooseModule } from '@nestjs/mongoose';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { SharedModule } from './shared/shared.module';
+import { UserModule } from './users/user.module';
 import { AuthModule } from './auth/auth.module';
 
 @Module({
-  imports: [MongooseModule.forRoot(process.env.MONGO_URI), SharedModule, AuthModule],
+  imports: [TypeOrmModule.forRoot(), UserModule, AuthModule],
   controllers: [AppController],
   providers: [AppService],
 })
