@@ -1,5 +1,5 @@
 import { UsersEntity } from './user.entity';
-import { LoginDTO } from '../auth/auth.dto';
+import { UserCredentials } from '../auth/auth.model';
 import { Injectable, HttpException, HttpStatus, Logger } from '@nestjs/common';
 import { User } from './user.dto';
 import * as bcrypt from 'bcrypt';
@@ -34,7 +34,7 @@ export class UserService {
     return this.sanitizeUser(createdUser);
   }
 
-  async findByLogin(userDTO: LoginDTO) {
+  async findByLogin(userDTO: UserCredentials) {
     const { email, password } = userDTO;
     const user = await this.userRepository.findOne({ email });
     if (!user) {

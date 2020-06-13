@@ -1,11 +1,11 @@
-import { User } from './../../dist/types/user.d';
-import { AuthService } from './auth.service';
-import { LoginDTO } from './auth.dto';
+ import { AuthService } from './auth.service';
+import { UserCredentials } from './auth.model';
 import { UserService } from '../users/user.service';
 import { Controller, Post, Body, Logger, Get, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { User } from 'src/users/user.dto';
 
-@Controller('auth')
+@Controller('api/auth')
 export class AuthController {
   constructor(
     private userService: UserService,
@@ -13,7 +13,7 @@ export class AuthController {
   ) {}
 
   @Post('login')
-  async login(@Body() userDTO: LoginDTO) {
+  async login(@Body() userDTO: UserCredentials) {
     const user = await this.userService.findByLogin(userDTO);
     const payload = {
       email: user.email,
