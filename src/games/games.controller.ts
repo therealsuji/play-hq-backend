@@ -13,6 +13,13 @@ export class GamesController {
     return await this.gameService.getTopGames();
   }
 
+  @Get('trending')
+  async getTrendingGames(){
+    return await this.gameService.getTrendingGames();
+  }
 
-
+  @Get('upcoming')
+  async getUpcomingGames(){
+    return await this.gameService.getUpcomingGames();
+  }
 }

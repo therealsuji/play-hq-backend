@@ -1,16 +1,16 @@
- import { AuthService } from './auth.service';
+import { AuthService } from './auth.service';
 import { UserCredentials } from './auth.model';
 import { UserService } from '../users/user.service';
 import { Controller, Post, Body, Logger, Get, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { User } from 'src/users/user.dto';
+import { User } from 'src/users/user.model';
 
 @Controller('api/auth')
 export class AuthController {
   constructor(
     private userService: UserService,
     private authService: AuthService,
-  ) {}
+  ) { }
 
   @Post('login')
   async login(@Body() userDTO: UserCredentials) {
