@@ -1,13 +1,7 @@
-import {
-  PrimaryGeneratedColumn,
-  CreateDateColumn,
-  Column,
-  Entity,
-} from 'typeorm';
+import { PrimaryGeneratedColumn, CreateDateColumn, Column, Entity } from "typeorm";
 
-
-@Entity('trending_games')
-export class TrendingEntity {
+@Entity("top_games")
+export class TopGamesEntity {
   @PrimaryGeneratedColumn("increment")
   id: string;
 
@@ -24,12 +18,9 @@ export class TrendingEntity {
   background: string;
 
   @Column("varchar")
-  clip: string;
+  score: string;
   
   @Column("varchar")
-  score: string;
- 
-  @Column({type:'varchar',default:''})
-  characterImage: string;
+  clip: string;
  
 }

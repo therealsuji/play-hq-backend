@@ -3,12 +3,12 @@ import { Screenshots } from "../sub-types/screenshots.model";
 import { Genres } from "../sub-types/genres.model";
 
 export class Trending {
+    gameId: string;
     name: string;
-    date: string;
-    score: string;
-    platforms: Platform;
-    id: number;
+    releaseDate: string;
     background: string;
-    screenshots: Screenshots
-    genres: Genres
+    clip: string;
+    score:string;
+
+    characterImage?: string
 }
