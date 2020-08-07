@@ -8,7 +8,7 @@ export class TopGamesEntity {
   @Column("varchar")
   name: string;
 
-  @Column("varchar")
+  @Column("date")
   releaseDate: string;
 
   @Column("varchar")

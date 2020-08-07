@@ -11,7 +11,7 @@ import { TrendingEntity } from "./entities/trending.entity";
 import { UpComingGamesEntity } from "./entities/upcoming-games.entity";
 import { TopGamesEntity } from "./entities/top-games.entity";
 @Injectable()
-export class GameService {
+export class RawGApiGameService {
   constructor(
     @InjectRepository(TrendingEntity)
     private trendingRepository: Repository<TrendingEntity>,

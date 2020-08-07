@@ -1,9 +1,9 @@
 import { Controller, Get, Post, Body} from "@nestjs/common";
-import { GameService } from "./games.service";
+import { RawGApiGameService } from "./rawgapi-games.service";
  
-@Controller("api/games")
-export class GamesController {
-  constructor(private gameService: GameService) {}
+@Controller("api/rawg/")
+export class RawGApiGamesController {
+  constructor(private gameService: RawGApiGameService) {}
 
   @Post("top-games")
   async getTopGames(@Body() body) {

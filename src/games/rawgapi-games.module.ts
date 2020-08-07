@@ -1,7 +1,7 @@
 
 import { Module, HttpModule } from '@nestjs/common';
-import { GamesController } from './games.controller';
-import { GameService } from './games.service';
+import { RawGApiGamesController} from './rawgapi-games.controller';
+import { RawGApiGameService } from './rawgapi-games.service';
 
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TrendingEntity } from './entities/trending.entity';
@@ -10,8 +10,8 @@ import { UpComingGamesEntity } from './entities/upcoming-games.entity';
 
 
 @Module({
-  controllers: [GamesController],
+  controllers: [RawGApiGamesController],
   imports: [HttpModule,TypeOrmModule.forFeature([TrendingEntity,TopGamesEntity,UpComingGamesEntity])],
-  providers: [GameService],
+  providers: [RawGApiGameService],
 })
-export class GamesModule {}
+export class RawGApiGamesModule {}
