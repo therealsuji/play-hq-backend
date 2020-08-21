@@ -54,6 +54,6 @@ export class AuthController {
   @Get("user-exists/:email")
   async userExists(@Param("email") email) {
     const user = await this.userService.findByEmail(email);
-    return user ? true : false;
+    return user ? {"status":true} : {"status":false};
   }
 }
