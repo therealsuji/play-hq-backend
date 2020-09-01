@@ -29,6 +29,7 @@
     "@nestjs/typeorm": "^7.1.0",
     "bcrypt": "^4.0.1",
     "dotenv": "^8.2.0",
+    "moment": "^2.27.0",
     "mongoose": "^5.9.13",
     "mysql": "^2.18.1",
     "passport": "^0.4.1",

@@ -1,7 +1,7 @@
 import { UsersEntity } from './user.entity';
-import { LoginDTO } from '../auth/auth.dto';
+import { UserCredentials } from '../auth/auth.model';
 import { Injectable, HttpException, HttpStatus, Logger } from '@nestjs/common';
-import { User } from './user.dto';
+import { User } from './user.model';
 import * as bcrypt from 'bcrypt';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -10,7 +10,7 @@ export class UserService {
   constructor(
     @InjectRepository(UsersEntity)
     private userRepository: Repository<UsersEntity>,
-  ) {}
+  ) { }
 
   private sanitizeUser(user: UsersEntity) {
     delete user.password;
@@ -34,7 +34,7 @@ export class UserService {
     return this.sanitizeUser(createdUser);
   }
 
-  async findByLogin(userDTO: LoginDTO) {
+  async findByLogin(userDTO: UserCredentials) {
     const { email, password } = userDTO;
     const user = await this.userRepository.findOne({ email });
     if (!user) {
